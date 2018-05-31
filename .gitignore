@@ -1,2 +1,3 @@
 .buildconfig
 vendor/
+composer.lock
