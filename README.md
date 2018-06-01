@@ -18,3 +18,8 @@ IDL (Interface Description Language) parser implemented in PHP >= 7.2.5
 The Zend\Idl component provides tools for working with IDLs documents and structures.
 Currently, we offer Zend\Idl\Parser, which provides a unified interface for parsing IDL documents and modelize it.
 
+```
+<?php
+require "vendor/autoload.php";
+
+```
