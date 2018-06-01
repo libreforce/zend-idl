@@ -49,7 +49,6 @@ class Document extends Node
     {
         $class = '\\Zend\\Idl\\Node';
         $type = Node::IDL_UNKNOW_NODE;
-        $type = Node::IDL_ELEMENT_NODE;
         $filtered_array = array_filter(Node::IDL_NODE_MAP, function ($element) use ($name) { return ($element['name'] == $name); } );
         $filtered_array = array_pop($filtered_array);
         if (is_array($filtered_array)) {
@@ -57,7 +56,7 @@ class Document extends Node
             $class = $filtered_array['class'];
         }
         if (Node::IDL_UNKNOW_NODE==$type) {
-            // throw new Exception();
+            trigger_error("Invalid argument. Class '$name' do not exists", E_USER_ERROR);
             return NULL;
         }
 

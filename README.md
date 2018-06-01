@@ -19,6 +19,13 @@ The Zend\Idl component provides tools for working with IDLs documents and struct
 Currently, we offer Zend\Idl\Parser, which provides a unified interface for parsing IDL documents and modelize it.
 
 ```
+TODO:
+
+        //$interface->setLocal();
+        //$interface->setAbstract();
+        //$interface->setInheritances('App::Object');// array('App::Object'), new Type('Object')->setNamespace('App')
+
+        //$operation->setContext();
 <?php
 require "vendor/autoload.php";
 

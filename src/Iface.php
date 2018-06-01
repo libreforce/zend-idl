@@ -25,9 +25,26 @@ class Iface extends Node
     protected $name;
 
     /**
-     * Get the type of the node
+     * @var boolean
+     */
+    public $isAbstract = FALSE;
+
+    /**
+     * @var boolean
+     */
+    public $isLocal = FALSE;
+
+    /**
+     * Inheritance interface
      *
-     * @return integer
+     * @var array
+     */
+    public $inheritances = [];
+
+    /**
+     * Set the interface name
+     *
+     * @return Iface
      */
     public function setName($name)
     {
@@ -36,13 +53,57 @@ class Iface extends Node
     }
 
     /**
-     * Get the name of the module
+     * Get the name of the interface
      *
      * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set if interface is abstract
+     *
+     * @param boolean $isAbstract
+     * @return Iface
+     */
+    public function setAbstract($isAbstract=TRUE)
+    {
+        $this->isAbstract = $isAbstract;
+        return $this;
+    }
+
+    /**
+     * Get if interface is abstract
+     *
+     * @return boolean
+     */
+    public function getAbstract()
+    {
+        return $this->isAbstract;
+    }
+
+    /**
+     * Set if interface is local
+     *
+     * @param boolean $isLocal
+     * @return Iface
+     */
+    public function setLocal($isLocal=TRUE)
+    {
+        $this->isLocal = $isLocal;
+        return $this;
+    }
+
+    /**
+     * Get if interface is local
+     *
+     * @return boolean
+     */
+    public function getLocal()
+    {
+        return $this->isLocal;
     }
 
     /**

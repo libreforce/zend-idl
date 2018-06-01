@@ -24,7 +24,11 @@ class Node
     const IDL_DOCUMENT_NODE   = 2; //'document';
     const IDL_MODULE_NODE     = 3; //'module';
     const IDL_INTERFACE_NODE  = 4; //'interface';
-    const IDL_EXPORT_NODE     = 5; //'export';
+    const IDL_OPERATION_NODE  = 5; //'operation';
+    const IDL_TYPE_NODE       = 6; //'type';
+    const IDL_PARAMETER_NODE  = 7; //'parameter';
+    const IDL_ATTRIBUTE_NODE  = 8; //'attribute';
+    const IDL_EXPORT_NODE     = 9; //'export';
     /**#@-*/
 
     const IDL_NODE_MAP = array(
@@ -33,6 +37,10 @@ class Node
         self::IDL_DOCUMENT_NODE  => array('name' => 'document',  'class' => '\\Zend\\Idl\\document',  'type' => self::IDL_DOCUMENT_NODE),
         self::IDL_MODULE_NODE    => array('name' => 'module',    'class' => '\\Zend\\Idl\\Module',    'type' => self::IDL_MODULE_NODE),
         self::IDL_INTERFACE_NODE => array('name' => 'interface', 'class' => '\\Zend\\Idl\\Iface',     'type' => self::IDL_INTERFACE_NODE),
+        self::IDL_OPERATION_NODE => array('name' => 'operation', 'class' => '\\Zend\\Idl\\Operation', 'type' => self::IDL_OPERATION_NODE),
+        self::IDL_TYPE_NODE      => array('name' => 'type',      'class' => '\\Zend\\Idl\\Type',      'type' => self::IDL_TYPE_NODE),
+        self::IDL_PARAMETER_NODE => array('name' => 'parameter', 'class' => '\\Zend\\Idl\\Parameter', 'type' => self::IDL_PARAMETER_NODE),
+        self::IDL_ATTRIBUTE_NODE => array('name' => 'attribute', 'class' => '\\Zend\\Idl\\Attribute', 'type' => self::IDL_ATTRIBUTE_NODE),
         self::IDL_EXPORT_NODE    => array('name' => 'export',    'class' => '\\Zend\\Idl\\Node',      'type' => self::IDL_EXPORT_NODE),
     );
 
@@ -86,6 +94,31 @@ class Node
     }
 
     /**
+     * @param  array|Traversable $options
+     * @throws Exception\InvalidArgumentException
+     * @return Node
+     */
+    public function setOptions($options)
+    {
+        if (! is_array($options) && ! $options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s expects an array or Traversable object; received "%s"',
+                __METHOD__,
+                is_object($options) ? get_class($options) : gettype($options)
+            ));
+        }
+        foreach ($options as $optionName => $optionValue) {
+            $methodName = 'set' . $optionName;
+            if (method_exists($this, $methodName)) {
+                $this->{$methodName}($optionValue);
+            } else {
+                trigger_error("Method '$methodName' do not exists", E_USER_ERROR);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Get the type of the node
      *
      * @return integer
@@ -106,12 +139,24 @@ class Node
     }
 
     /**
+     * setNodeParent
+     *
+     * @return Node
+     */
+    public function setNodeParent($parent)
+    {
+        $this->nodeParent = $parent;
+
+        return $this;
+    }
+
+    /**
      * appendNode
      *
      */
     public function appendNode($node)
     {
-        $node->nodeParent = $this;
+        $node->setNodeParent($this);
         $this->nodeList[] = $node;
 
         return $this;
