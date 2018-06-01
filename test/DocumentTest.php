@@ -21,10 +21,49 @@ use Zend\Idl\Document;
 class DocumentTest extends TestCase
 {
 
-    public function testConstructorDocument()
+    public function testConstructor()
     {
         $doc = new Document();
         $this->assertEquals(Node::IDL_DOCUMENT_NODE, $doc->getNodeType());
         $this->assertEquals('document', $doc->getNodeName());
+    }
+
+    public function testCreateNodeException()
+    {
+        $doc = new Document();
+        $element = $doc->createNode('unknow');
+
+        $this->assertInstanceof('\\Zend\\Idl\\Node', $element);
+    }
+
+    public function testAppendNode()
+    {
+        $doc = new Document();
+        $module = $doc->createNode('module');
+        $module->setName('Dom');
+        $doc->appendNode($module);
+
+        $this->assertEquals(Node::IDL_DOCUMENT_NODE, $doc->getNodeType());
+        $this->assertEquals('document', $doc->getNodeName());
+    }
+
+    public function testToString()
+    {
+        $doc = new Document();
+
+        $module = $doc->createNode('module');
+        $module->setName('Dom');
+        $doc->appendNode($module);
+
+        $interface = $doc->createNode('interface');
+        $interface->setName('Node');
+        $module->appendNode($interface);
+
+$output = "module Dom {
+    interface Node {
+    };
+};
+";
+        $this->assertEquals($output, $doc->toString());
     }
 }
