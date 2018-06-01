@@ -151,8 +151,6 @@ $output = "interface Node {
         $constant->setValue(1);
         $interface->appendNode($constant);
 
-
-// const unsigned short ELEMENT_NODE = 1;
 $output = "interface Node {
     const unsigned short ELEMENT_NODE = 1;
 };

@@ -102,13 +102,19 @@ class Constant extends Node
         } else if (is_int($value)) {
             $node = $this->ownerDocument->createNode('value');
             $node->setNodeParent($this);
-            //$node->setType('integer');
+            $node->setType('int');
+            $node->setData($value);
+            $this->value = $node;
+        } else if (is_float($value)) {
+            $node = $this->ownerDocument->createNode('value');
+            $node->setNodeParent($this);
+            $node->setType('float');
             $node->setData($value);
             $this->value = $node;
         } else if (is_string($value)) {
             $node = $this->ownerDocument->createNode('value');
             $node->setNodeParent($this);
-            //$node->setType('string');// simple quote, double quote, HerDoc, ...
+            $node->setType('string');// simple quote, double quote, HerDoc, ...
             $node->setData($value);
             $this->value = $node;
         } else {

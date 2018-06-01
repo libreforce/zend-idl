@@ -25,6 +25,12 @@ class Value extends Node
     protected $data;
 
     /**
+     * The native type data of value
+     * @var string
+     */
+    protected $type;
+
+    /**
      * Set the data of the value
      *
      * @param mixed
@@ -44,6 +50,28 @@ class Value extends Node
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * Set the native type of the value
+     *
+     * @param mixed
+     * @return Value
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get the native type of the value
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
