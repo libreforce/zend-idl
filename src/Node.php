@@ -28,7 +28,9 @@ class Node
     const IDL_TYPE_NODE       = 6; //'type';
     const IDL_PARAMETER_NODE  = 7; //'parameter';
     const IDL_ATTRIBUTE_NODE  = 8; //'attribute';
-    const IDL_EXPORT_NODE     = 9; //'export';
+    const IDL_CONSTANT_NODE   = 9; //'constant';
+    const IDL_VALUE_NODE      = 10; //'value';
+    const IDL_EXPORT_NODE     = 11; //'export';
     /**#@-*/
 
     const IDL_NODE_MAP = array(
@@ -41,6 +43,8 @@ class Node
         self::IDL_TYPE_NODE      => array('name' => 'type',      'class' => '\\Zend\\Idl\\Type',      'type' => self::IDL_TYPE_NODE),
         self::IDL_PARAMETER_NODE => array('name' => 'parameter', 'class' => '\\Zend\\Idl\\Parameter', 'type' => self::IDL_PARAMETER_NODE),
         self::IDL_ATTRIBUTE_NODE => array('name' => 'attribute', 'class' => '\\Zend\\Idl\\Attribute', 'type' => self::IDL_ATTRIBUTE_NODE),
+        self::IDL_CONSTANT_NODE  => array('name' => 'constant',  'class' => '\\Zend\\Idl\\Constant',  'type' => self::IDL_CONSTANT_NODE),
+        self::IDL_VALUE_NODE     => array('name' => 'value',     'class' => '\\Zend\\Idl\\Value',     'type' => self::IDL_VALUE_NODE),
         self::IDL_EXPORT_NODE    => array('name' => 'export',    'class' => '\\Zend\\Idl\\Node',      'type' => self::IDL_EXPORT_NODE),
     );
 

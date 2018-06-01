@@ -26,6 +26,8 @@ TODO:
         //$interface->setInheritances('App::Object');// array('App::Object'), new Type('Object')->setNamespace('App')
 
         //$operation->setContext();
+        
+        // $constant->setValue(1);
 <?php
 require "vendor/autoload.php";
 

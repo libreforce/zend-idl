@@ -134,4 +134,31 @@ $output = "interface Node {
         $this->assertEquals($doc->toString(), $output);
     }
 
+    public function testConstantToString()
+    {
+        $doc = new Document();
+
+        $interface = $doc->createNode('interface');
+        $interface->setName('Node');
+        //$interface->setLocal();
+        //$interface->setAbstract();
+        //$interface->setInheritances('App::Object');
+        $doc->appendNode($interface);
+
+        $constant = $doc->createNode('constant');
+        $constant->setName('ELEMENT_NODE');
+        $constant->setType('unsigned short');
+        $constant->setValue(1);
+        $interface->appendNode($constant);
+
+
+// const unsigned short ELEMENT_NODE = 1;
+$output = "interface Node {
+    const unsigned short ELEMENT_NODE = 1;
+};
+";
+
+        $this->assertEquals($doc->toString(), $output);
+    }
+
 }
