@@ -34,7 +34,7 @@ class Attribute extends Node
      * Attribute is readonly
      * @var boolean
      */
-    public $isReadonly;
+    public $isReadonly = FALSE;
 
     /**
      * Get the name of the type

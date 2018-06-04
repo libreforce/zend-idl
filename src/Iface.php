@@ -101,7 +101,7 @@ class Iface extends Node
      *
      * @return boolean
      */
-    public function getLocal()
+    public function isLocal()
     {
         return $this->isLocal;
     }
@@ -115,7 +115,20 @@ class Iface extends Node
         $tab = str_repeat(Node::STRING_TAB, $indent);
         $output = '';
 
-        $output .= $tab . 'interface ' . $this->name . ' {' . PHP_EOL;
+        $scope = '';
+        if ($this->isLocal()) {
+            $scope .= 'local ';
+        }
+
+        $glue = ' : ';
+        $inheritances = '';
+        for ($i=0; $i<count($this->inheritances); $i++) {
+            $inheritance = $this->inheritances[$i];
+            $inheritances .= $glue . $inheritance;
+            $glue = ', ';
+        }
+
+        $output .= $tab . $scope . 'interface ' . $this->name . $inheritances . ' {' . PHP_EOL;
         $output .= Node::toString($indent+1);
         $output .= $tab . '};' . PHP_EOL;
 

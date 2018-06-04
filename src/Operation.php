@@ -108,14 +108,43 @@ class Operation extends Node
         return $this->type;
     }
 
-    // public function addRaise($raise)
+
     /**
-     * Get the type of the operation
+     * Add raise type to the operation
      *
-     * @return string|Node
+     * @return Node
+     */
+    public function addRaise($raise)
+    {
+        if ($this->raises==NULL) {
+            $node = $this->ownerDocument->createNode('element');// raises ( ... )
+            $node->setNodeParent($this);
+            $this->raises = $node;
+        }
+
+        if ($raise instanceof Node) {
+            $this->raises->appendNode($raise);
+        } else if ( is_string($raise) ) {
+            $type = $this->ownerDocument->createNode('type');
+            $type->setName($raises);
+            $this->raises->appendNode($type);
+        }
+        return $this;
+    }
+
+    /**
+     * Set the raises type of the operation
+     *
+     * @return Node
      */
     public function setRaises($raises)
     {
+        if ($this->raises==NULL) {
+            $node = $this->ownerDocument->createNode('element');// raises ( ... )
+            $node->setNodeParent($this);
+            $this->raises = $node;
+        }
+
         if ($raises instanceof Node) {
             $this->raises = $raises;
         } else if ( is_string($raises) ) {
@@ -149,6 +178,7 @@ class Operation extends Node
         return $this;
     }
 
+
     // setParameter($parameter, $index)
 
     /**
@@ -173,6 +203,24 @@ class Operation extends Node
     }
 
     /**
+     * get Raise
+     * @return Node
+     */
+    public function getRaiseAt($index=0)
+    {
+        if ( $this->raises == NULL ) {
+            return NULL;
+        }
+
+        $list = $this->raises->getNodeList();
+        if ( $index<count($list) ) {
+            return $list[$index];
+        }
+
+        return NULL;
+    }
+
+    /**
      * toString
      * @return string
      */
@@ -190,8 +238,8 @@ class Operation extends Node
             $output .= $glue . $node->toString($indent);
             $glue = ', ';
         }
-
         $output .= ')';
+
         if ($this->raises != NULL) {
             $output .= ' raises (';
             $glue = '';

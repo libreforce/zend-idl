@@ -167,6 +167,29 @@ class Node
     }
 
     /**
+     * appendNode
+     *
+     */
+    public function getNodeAt($index)
+    {
+        if ($index<count($this->nodeList)) {
+            return $this->nodeList[$index];
+        }
+
+        return NULL;
+    }
+
+    /**
+     * getNodeList
+     *
+     */
+    public function getNodeList()
+    {
+        return $this->nodeList;
+    }
+
+
+    /**
      * toString
      * @return string
      */
